@@ -4,15 +4,22 @@ import { useGlobalContext } from "../context";
 
 const Beers = () => {
 
-    const {beers} = useGlobalContext()
+    const {loading, beers} = useGlobalContext()
+
+    if (loading){
+      return <section className='section'>
+      <h4>Loading...</h4>
+      </section>
+    }
 
     return <section>
-    {beers.map((oneBeer) => {
+      {beers.map((oneBeer) => {
       console.log(oneBeer)
       return <h4>single beer</h4>
         
     })}
-  </section>
+    </section>
 }
 
 export default Beers;
+
