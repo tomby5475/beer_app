@@ -1,4 +1,137 @@
-.App {
-  text-align: center;
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+html {
+  font-size: 100%;
 }
 
+:root {
+  --yellow-100: #ffffe0;
+  --yellow-200: #fffacd;
+  --yellow-300: #ffff66;
+  --yellow-400: #fcf75e;
+  --yellow-500: #ffff00;
+
+  --grey-100: #f1f5f9;
+  --grey-200: #e2e8f0;
+  --grey-300: #cbd5e1;
+  --grey-400: #94a3b8;
+  --grey-500: #64748b;
+  --grey-600: #475569;
+  --grey-700: #334155;
+  --grey-800: #1e293b;
+  --grey-900: #0f172a;
+
+  --black: #000000 ;
+  --white: #ffffff;
+  --blue: #03449d;
+  --red: #DC143C;
+
+  --backgroundColor: var(--grey-100);
+  --textColor: var(var(--grey-900));
+  --letterSpacing: 1px;
+  --max-width: 1120px;
+  --view-width: 90vw;
+  --shadow-1: 0 3px 10px rgb(0 0 0 / 0.1);
+  --shadow-2: 0 3px 10px rgb(0 0 0 / 0.2);
+  --shadow-3: 0 3px 10px rgb(0 0 0 / 0.4);
+  --borderRadius: 0.25rem;
+  --transition: 0.3s ease-in-out all;
+}
+
+body {
+  background: var(--backgroundColor);
+  color: var(--textColor);
+}
+
+p {
+  margin-bottom: 1.5rem;
+  max-width: 40em;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: var(--letterSpacing);
+}
+
+.img {
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.section, .section-center {
+  padding: 3rem 0;
+  margin: 0 auto;
+  width: var(--view-width);
+  max-width: var(--max-width);
+  display: grid;
+  gap: 2rem;
+}
+
+.section-center {
+  display: grid;
+  gap: 2rem;
+}
+
+@media screen and (min-width:776px) {
+  .section-center{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width:992px) {
+  .section-center{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.oneBeer {
+  background: var(--white);
+  box-shadow: var(--shadow-1);
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  padding: 1rem 0;
+}
+
+.oneBeer:hover {
+  box-shadow: var(--shadow-3);
+}
+
+.oneBeer img {
+  height: 15.5rem;
+}
+
+.oneBeer footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:1rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.like-btn {
+  background: transparent;
+  border: transparent;
+  font-size: 1.5rem;
+  transition: var(--transition);
+}
+
+.like-btn:hover {
+  color: var(--red);
+  transform: translateY(-2px);
+}
