@@ -29,6 +29,7 @@ html {
   --black: #000000 ;
   --white: #ffffff;
   --blue: #03449d;
+  --dark-blue: #02367d;
   --red: #DC143C;
 
   --backgroundColor: var(--grey-100);
@@ -41,6 +42,7 @@ html {
   --shadow-3: 0 3px 10px rgb(0 0 0 / 0.4);
   --borderRadius: 0.25rem;
   --transition: 0.3s ease-in-out all;
+  --padding: 0.375rem 0.75rem;
 }
 
 body {
@@ -72,6 +74,20 @@ h1, h2, h3, h4, h5 {
 
 .btn {
   cursor: pointer;
+  color: var(--white);
+  background: var(--blue);
+  border: transparent;
+  border-radius: var(--borderRadius);
+  padding: var(--padding);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition);
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.btn:hover {
+  background: var(--grey-900);
+  box-shadow: var(--shadow-2);
 }
 
 .section, .section-center {
@@ -134,4 +150,27 @@ h1, h2, h3, h4, h5 {
 .like-btn:hover {
   color: var(--red);
   transform: translateY(-2px);
+}
+
+.search-block {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding);
+  border-radius: var(--borderRadius);
+  border: 1px solid var(--grey-200);
+  background-color: var(--white);
+}
+
+.search-block form{
+  width: var(--view-width);
+  max-width: var(--max-width);
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.search-block input {
+  padding: var(--padding);
 }

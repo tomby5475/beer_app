@@ -5,14 +5,14 @@ import { AiOutlineHeart } from 'react-icons/ai';
 
 const Beers = () => {
 
-    const {loading, beers} = useGlobalContext()
+    const {loading, beers} = useGlobalContext();
 
     if (loading){
       return <section className='section'>
         <h4>Loading...</h4>
       </section>
     }
-    if(beers.length < 1) {
+    if (beers.length < 1) {
       return <section className='section'>
         <h4>No beers matched your search. Plese try again</h4>
       </section>
