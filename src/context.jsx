@@ -1,41 +1,48 @@
 import React, { useState, useContext, useEffect } from 'react'
+import axios from 'axios'
 
 const AppContext = React.createContext()
 
-
-const allBeers = 'https://api.punkapi.com/v2/beers?'
-// const randomBeer = 'https://api.punkapi.com/v2/beers/random'
+const allBeers = 'https://api.punkapi.com/v2/beers?*'
+const randomBeer = 'https://api.punkapi.com/v2/beers/random'
 
 const AppProvider = ({ children }) => {
   const [beers, setBeers] = useState([])
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 
-  useEffect(()=>{
+  const fetchBeers = async (url) => {
     setLoading(true)
 
-    fetch(allBeers)
-    .then((response) => response.json())
-    .then((beers) => {
-      setBeers(beers)
-      if(beers) {
-        setBeers(beers)
+    try {
+      const {data} = await axios.get(url)
+      if(data) {
+        setBeers(data)
       }
       else {
         setBeers([])
       }
+    }
+    catch (e) {
+      console.log(e.response)
+    }
       setLoading(false)
-    })
-    .catch((error) => {
-      console.log(error.response)
-    })
-  },[])
+  }
+   
+  const fetchRandomBeer = () => {
+    fetchBeers(randomBeer)
+  }
 
   useEffect(() => {
-    fetch({allBeers}, {searchTerm}) 
+    fetchBeers(allBeers)
+  }, [])
+
+  useEffect(() => {
+    if(!searchTerm) return
+    fetchBeers(`${allBeers} ${searchTerm}`) 
   }, [searchTerm])
 
-  return <AppContext.Provider value={{loading, beers, setSearchTerm}}>
+  return <AppContext.Provider value={{loading, beers, setSearchTerm, fetchRandomBeer}}>
   {children}
 </AppContext.Provider>
 }
