@@ -3,18 +3,22 @@ import './App.css';
 import React from 'react';
 import Beers from './components/Beers';
 import Search from './components/Search';
-// import BeerInfo from './components/BeerInfo';
-// import Favorites from './components/Favorites';
+import BeerInfo from './components/BeerInfo';
+import { useGlobalContext } from './context';
+import Favorites from './components/Favorites';
 
 
 
 function App() {
+
+  const {showBeerInfo, favorites} = useGlobalContext()
+
   return (
     <main>
       <Search/>
-      {/* <Favorites/> */}
-      {/* <BeerInfo/> */}
+      {favorites.length > 0 && <Favorites/>}
       <Beers/>
+      {showBeerInfo && <BeerInfo/>}
     </main>
   );
 }

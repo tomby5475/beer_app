@@ -120,7 +120,6 @@ h1, h2, h3, h4, h5 {
   background: var(--white);
   box-shadow: var(--shadow-1);
   border-radius: var(--borderRadius);
-  cursor: pointer;
   padding: 1rem 0;
 }
 
@@ -130,6 +129,7 @@ h1, h2, h3, h4, h5 {
 
 .oneBeer img {
   height: 15.5rem;
+  cursor: pointer;
 }
 
 .oneBeer footer {
@@ -145,6 +145,7 @@ h1, h2, h3, h4, h5 {
   border: transparent;
   font-size: 1.5rem;
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .like-btn:hover {
@@ -173,4 +174,55 @@ h1, h2, h3, h4, h5 {
 
 .search-block input {
   padding: var(--padding);
+}
+
+.oneBeer_layout {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg);
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+}
+
+.oneBeer_container {
+  width: 80vw;
+  max-width: 800px;
+  height: 80vh;
+  overflow: scroll;
+  padding: 1rem 1.5rem;
+}
+
+.oneBeer_container img {
+  height: 20rem;
+}
+
+.favorites {
+  background: var(--yellow-300);
+  color: var(--grey-900);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.favorites_container {
+  width: var(--view-width);
+  max-width: var(--max-width);
+  margin:0 auto;
+  display: flex;
+  flex-direction: wrap;
+}
+
+.favorites_container img {
+  height:70px;
+  cursor:pointer;
+}
+
+.favorites_content {
+ 
+  /* flex-wrap: wrap;
+  gap: 0.5rem; */
 }

@@ -5,7 +5,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 
 const Beers = () => {
 
-    const {loading, beers} = useGlobalContext();
+    const {loading, beers, selectBeer, addFavorites} = useGlobalContext();
 
     if (loading){
       return <section className='section'>
@@ -21,11 +21,11 @@ const Beers = () => {
     return <section className='section-center'>
       {beers.map((oneBeer) => {
       const {id, name, image_url} = oneBeer
-      return <article className="oneBeer" key={id}>
-          <img className='img' src={image_url} alt={name} />
+      return <article className="oneBeer" key={id} >
+          <img className='img' src={image_url} alt={name} onClick={() => selectBeer(id)}/>
           <footer>
             <h5>{name}</h5>
-            <button className="like-btn"><AiOutlineHeart /></button>
+            <button className="like-btn" onClick={() => addFavorites(id)}><AiOutlineHeart /></button>
           </footer>
       </article>  
     })}
