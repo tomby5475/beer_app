@@ -6,13 +6,24 @@ const AppContext = React.createContext()
 const allBeers = 'https://api.punkapi.com/v2/beers?'
 const randomBeer = 'https://api.punkapi.com/v2/beers/random'
 
+const getFavoritesFromLocalStorage = () => {
+  let favorites = localStorage.getItem('favorites')
+  if (favorites) {
+    favorites = JSON.parse(localStorage.getItem('vavorites'))
+  }
+  else {
+    favorites = []
+  } 
+  return favorites 
+}
+
 const AppProvider = ({ children }) => {
   const [beers, setBeers] = useState([])
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [showBeerInfo, setShowBeerInfo] = useState(false)
   const [selectedBeer, setSelectedBeer] = useState(null)
-  const [favorites, setFavorites] = useState([])
+  const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage())
 
   const fetchBeers = async (url) => {
     setLoading(true)
@@ -45,8 +56,13 @@ const AppProvider = ({ children }) => {
     fetchBeers(randomBeer)
   }
 
-  const selectBeer = (id) => {
-    let beer = beers.find((beer)=>beer.id === id)
+  const selectBeer = (id, favoriteBeer) => {
+    let beer; 
+    if (favoriteBeer) {
+      beer = favorites.find((beer)=>beer.id === id)
+    } else {
+      beer = beers.find((beer)=>beer.id === id)
+    }
     setSelectedBeer(beer)
     setShowBeerInfo(true) 
   }
@@ -59,13 +75,15 @@ const AppProvider = ({ children }) => {
     const beer = beers.find((beer) => beer.id === id)
     const alreadyFavorites = favorites.find((beer) => beer.id === id)
     if(alreadyFavorites) return
-    const updateFavorites = [...favorites, beer]
-    setFavorites(updateFavorites)
+    const updatedFavorites = [...favorites, beer]
+    setFavorites(updatedFavorites)
+    localStorage.setItem('faovorites',JSON.stringify(updatedFavorites))
   }
 
   const removeFavorites = (id) => {
     const updatedFavorites = favorites.filter((beer)=> beer.id !== id)
     setFavorites(updatedFavorites)
+    localStorage.setItem('faovorites',JSON.stringify(updatedFavorites))
   }
 
   return <AppContext.Provider value={{loading, beers, setSearchTerm, fetchRandomBeer, showBeerInfo, selectBeer, selectedBeer, closeBeerInfo, addFavorites, favorites, removeFavorites}}>
