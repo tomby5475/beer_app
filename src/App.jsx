@@ -15,7 +15,7 @@ function App() {
 
   return (
     <main>
-      <Search/>
+      {showBeerInfo || <Search/>}
       {favorites.length > 0 && <Favorites/>}
       <Beers/>
       {showBeerInfo && <BeerInfo/>}
