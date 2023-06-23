@@ -3,13 +3,14 @@ import axios from 'axios'
 
 const AppContext = React.createContext()
 
-const allBeers = 'https://api.punkapi.com/v2/beers?'
+const allBeers = 'https://api.punkapi.com/v2/beers'
 const randomBeer = 'https://api.punkapi.com/v2/beers/random'
+const searchBeer = 'https://api.punkapi.com/v2/beers?'
 
 const getFavoritesFromLocalStorage = () => {
   let favorites = localStorage.getItem('favorites')
   if (favorites) {
-    favorites = JSON.parse(localStorage.getItem('vavorites'))
+    favorites = JSON.parse(localStorage.getItem('favorites'))
   }
   else {
     favorites = []
@@ -49,7 +50,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if(!searchTerm) return
-    fetchBeers(allBeers + 'beer_name=' + searchTerm) 
+    fetchBeers(searchBeer + 'beer_name=' + searchTerm) 
   }, [searchTerm])
 
   const fetchRandomBeer = () => {
@@ -77,13 +78,13 @@ const AppProvider = ({ children }) => {
     if(alreadyFavorites) return
     const updatedFavorites = [...favorites, beer]
     setFavorites(updatedFavorites)
-    localStorage.setItem('faovorites',JSON.stringify(updatedFavorites))
+    localStorage.setItem('favorites',JSON.stringify(updatedFavorites))
   }
 
   const removeFavorites = (id) => {
     const updatedFavorites = favorites.filter((beer)=> beer.id !== id)
     setFavorites(updatedFavorites)
-    localStorage.setItem('faovorites',JSON.stringify(updatedFavorites))
+    localStorage.setItem('favorites',JSON.stringify(updatedFavorites))
   }
 
   return <AppContext.Provider value={{loading, beers, setSearchTerm, fetchRandomBeer, showBeerInfo, selectBeer, selectedBeer, closeBeerInfo, addFavorites, favorites, removeFavorites}}>

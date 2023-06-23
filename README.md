@@ -1,71 +1,51 @@
-# Getting Started with Create React App
+# **Beer App**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React-based web application that allows users to browse and interact with a list of beers. The app utilizes an API to fetch beer data and provides the following features:
 
-## Available Scripts
+- Viewing a list of beers
+- Accessing detailed information about a specific beer by clicking on its picture
+- Adding beers to favorites by clicking on the heart icon
+- Displaying a list of favorite beers at the top of the page
+- Persistent storage of favorite beers, even after page reloads
+- Generating a random beer with the "Random Beer" button
+- Filtering the beer list by searching for a specific beer name
 
-In the project directory, you can run:
 
-### `npm start`
+## Getting Started
+To run the Beer App locally, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
+`git clone https://github.com/tomby5475/beer_app.git`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Navigate to the project directory:
+`cd beer-app`
 
-### `npm test`
+3. Install the dependencies:
+`npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Start the development server:
+`npm start`
 
-### `npm run build`
+5. Open your web browser and visit http://localhost:3000 to see the Beer App in action.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Once the Beer App is up and running, you can perform the following actions:
 
-### `npm run eject`
+**View Beer List:** The main page displays a list of beers. Each beer is represented by its picture and name, and you can click on the picture to view more details about the beer.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Favorite Beers:** To add a beer to your favorites, simply click on the heart icon next to the beer's picture. The beer will be added to the top of the page in the favorites list. The list of favorite beers will persist even if you reload the page.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Random Beer:** Clicking on the "Random Beer" button will generate a random beer from the API and display its details. This feature is useful if you want to discover new beers.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Search:** The search field allows you to filter the beer list by typing the name of a beer. As you type, the list will dynamically update to show only the beers that match your search query.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Technologies Used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The Beer App is built using the following technologies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
+**React:** JavaScript library for building user interfaces
+**CSS:** Stylesheet language for designing web pages
+**API:** External data source for fetching beer information

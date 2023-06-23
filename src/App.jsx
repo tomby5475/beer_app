@@ -8,7 +8,6 @@ import { useGlobalContext } from './context';
 import Favorites from './components/Favorites';
 
 
-
 function App() {
 
   const {showBeerInfo, favorites} = useGlobalContext()
