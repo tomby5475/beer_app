@@ -8,14 +8,18 @@ const Beers = () => {
     const {loading, beers, selectBeer, addFavorites} = useGlobalContext();
 
     if (loading){
-      return <section className='section'>
+      return (
+      <section className='section'>
         <h4>Loading...</h4>
       </section>
+      );
     }
-    if (beers.length < 1) {
-      return <section className='section'>
-        <h4>No beers matched your search. Plese try again</h4>
+    if (!loading && beers.length < 1) {
+      return (
+      <section className='section'>
+        <h4>No beers matched your search. Please try again</h4>
       </section>
+      );
     }
 
     return <section className='section-center'>

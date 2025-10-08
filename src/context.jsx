@@ -3,9 +3,9 @@ import axios from 'axios'
 
 const AppContext = React.createContext()
 
-const allBeers = 'https://api.punkapi.com/v2/beers'
-const randomBeer = 'https://api.punkapi.com/v2/beers/random'
-const searchBeer = 'https://api.punkapi.com/v2/beers?'
+const allBeers = 'https://api.punkapi.com/v3/beers'
+const randomBeer = 'https://api.punkapi.com/v3/beers/random'
+const searchBeer = 'https://api.punkapi.com/v3/beers?'
 
 const getFavoritesFromLocalStorage = () => {
   let favorites = localStorage.getItem('favorites')
