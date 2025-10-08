@@ -5,7 +5,7 @@ const AppContext = React.createContext()
 
 const allBeers = 'https://punkapi.online/v3/beers'
 const randomBeer = 'https://punkapi.online/v3/beers/random'
-const searchBeer = 'https://api.punkapi.com/v2/beers?'
+const searchBeer = 'https://punkapi.online/v3/beers?'
 
 const getFavoritesFromLocalStorage = () => {
   let favorites = localStorage.getItem('favorites')
