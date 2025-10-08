@@ -1,102 +1,107 @@
-import React, { useState, useContext, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
-const AppContext = React.createContext()
+const AppContext = React.createContext();
 
-const allBeers = 'https://punkapi.online/v3/beers'
-const randomBeer = 'https://punkapi.online/v3/beers/random'
-const searchBeer = 'https://punkapi.online/v3/beers?'
+const API_BASE = 'https://punkapi.online/v3/beers';
+const RANDOM_BEER = `${API_BASE}/random`;
 
 const getFavoritesFromLocalStorage = () => {
-  let favorites = localStorage.getItem('favorites')
-  if (favorites) {
-    favorites = JSON.parse(localStorage.getItem('favorites'))
+  try {
+    const stored = localStorage.getItem('favorites');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
   }
-  else {
-    favorites = []
-  } 
-  return favorites 
-}
+};
 
 const AppProvider = ({ children }) => {
-  const [beers, setBeers] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [showBeerInfo, setShowBeerInfo] = useState(false)
-  const [selectedBeer, setSelectedBeer] = useState(null)
-  const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage())
+  const [beers, setBeers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showBeerInfo, setShowBeerInfo] = useState(false);
+  const [selectedBeer, setSelectedBeer] = useState(null);
+  const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage());
+  const [page, setPage] = useState(1);
 
   const fetchBeers = async (url) => {
-    setLoading(true)
-
-    try {
-      const {data} = await axios.get(url)
-      if(data) {
-        setBeers(data)
-      }
-      else {
-        setBeers([])
-      }
-    }
-    catch (e) {
-      console.log(e.response)
-    }
-      setLoading(false)
-  }
-   
-  useEffect(() => {
-    fetchBeers(allBeers)
-  }, [])
-
-  useEffect(() => {
-    if(!searchTerm) return
-    fetchBeers(searchBeer + 'beer_name=' + searchTerm) 
-  }, [searchTerm])
-
-  const fetchRandomBeer = () => {
-    fetchBeers(randomBeer)
-  }
-
-  const selectBeer = (id, favoriteBeer) => {
-    let beer; 
-    if (favoriteBeer) {
-      beer = favorites.find((beer)=>beer.id === id)
+  setLoading(true);
+  try {
+    const { data } = await axios.get(url);
+    if (Array.isArray(data)) {
+      setBeers(data);
+    } else if (data && typeof data === 'object') {
+      // handle random beer
+      setBeers([data]);
     } else {
-      beer = beers.find((beer)=>beer.id === id)
+      setBeers([]);
     }
-    setSelectedBeer(beer)
-    setShowBeerInfo(true) 
+  } catch (e) {
+    console.error('Fetch error:', e);
+    setBeers([]);
+  } finally {
+    setLoading(false);
   }
+};
 
-  const closeBeerInfo = () => {
-    setShowBeerInfo(false)
-  }
+  // Fetch beers for current page
+  useEffect(() => {
+    fetchBeers(`${API_BASE}?page=${page}&per_page=21`);
+  }, [page]);
 
-  const addFavorites = (id)=> {
-    const beer = beers.find((beer) => beer.id === id)
-    const alreadyFavorites = favorites.find((beer) => beer.id === id)
-    if(alreadyFavorites) return
-    const updatedFavorites = [...favorites, beer]
-    setFavorites(updatedFavorites)
-    localStorage.setItem('favorites',JSON.stringify(updatedFavorites))
-  }
+  // Fetch beers by search term
+  useEffect(() => {
+    if (!searchTerm) return;
+    fetchBeers(`${API_BASE}?beer_name=${encodeURIComponent(searchTerm)}&page=1&per_page=21`);
+  }, [searchTerm]);
+
+  const fetchRandomBeer = () => fetchBeers(RANDOM_BEER);
+
+  const selectBeer = (id, fromFavorites = false) => {
+    const list = fromFavorites ? favorites : beers;
+    const beer = list.find((b) => b.id === id);
+    setSelectedBeer(beer || null);
+    setShowBeerInfo(true);
+  };
+
+  const closeBeerInfo = () => setShowBeerInfo(false);
+
+  const addFavorites = (id) => {
+    const beer = beers.find((b) => b.id === id);
+    if (!beer || favorites.some((b) => b.id === id)) return;
+    const updated = [...favorites, beer];
+    setFavorites(updated);
+    localStorage.setItem('favorites', JSON.stringify(updated));
+  };
 
   const removeFavorites = (id) => {
-    const updatedFavorites = favorites.filter((beer)=> beer.id !== id)
-    setFavorites(updatedFavorites)
-    localStorage.setItem('favorites',JSON.stringify(updatedFavorites))
-  }
+    const updated = favorites.filter((b) => b.id !== id);
+    setFavorites(updated);
+    localStorage.setItem('favorites', JSON.stringify(updated));
+  };
 
-  return <AppContext.Provider value={{loading, beers, setSearchTerm, fetchRandomBeer, showBeerInfo, selectBeer, selectedBeer, closeBeerInfo, addFavorites, favorites, removeFavorites}}>
-  {children}
-</AppContext.Provider>
-}
+  return (
+    <AppContext.Provider
+      value={{
+        loading,
+        beers,
+        setSearchTerm,
+        fetchRandomBeer,
+        showBeerInfo,
+        selectBeer,
+        selectedBeer,
+        closeBeerInfo,
+        addFavorites,
+        favorites,
+        removeFavorites,
+        page,
+        setPage,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
-export const useGlobalContext = () => {
-    return useContext(AppContext)
-} 
-
-export {AppContext, AppProvider}
-
-
-
+export const useGlobalContext = () => useContext(AppContext);
+export { AppContext, AppProvider };

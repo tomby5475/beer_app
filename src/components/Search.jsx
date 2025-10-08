@@ -26,7 +26,7 @@ const Search = () => {
     }
 
     return ( <header className="search-block">
-        <a href="/"><img src={BeerIcon} alt="Beer!"  className="beerIcon"/></a>
+        <a href="https://tomby5475.github.io/beer_app/"><img src={BeerIcon} alt="Beer!"  className="beerIcon"/></a>
         <form onSubmit={handleSubmit}>
             <input type="text" placeholder="Search your beer" value={text} onChange={handleChange}/>
             <button type="submit" className="btn search_btn">Search</button>

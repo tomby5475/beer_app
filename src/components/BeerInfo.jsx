@@ -3,13 +3,26 @@ import { useGlobalContext } from "../context";
 
 const BeerInfo = () => {
         const {selectedBeer, closeBeerInfo} = useGlobalContext()
-        const {name, image_url: image, tagline, abv: strength, food_pairing} = selectedBeer
         
+        // Prevent crash if no beer selected yet
+          if (!selectedBeer) {
+                return (
+                        <section className="section">
+                                <h4>No beer selected</h4>
+                        </section>
+                );
+        }
+        const {id, name, tagline, abv: strength, food_pairing} = selectedBeer;
+        const safeImage = `https://punkapi.online/v3/images/${String(id).padStart(3, '0')}.png`;
+  
     return ( 
         <article className="oneBeer_layout">
                 <div className="oneBeer_container">
                         <h1>{name}</h1>
-                        <img src={image} alt={name}/>
+                        <img src={safeImage} alt={name} 
+                        onError={(e) => e.currentTarget.src = "https://placehold.co/150x300?text=No+Image"}
+
+                        />
                         <p>Description: {tagline}</p>
                         <p>Strength: {strength}</p>
                         <p>Goes well with: {food_pairing}</p>
